@@ -127,6 +127,7 @@ class AutoDisconnect(commands.Cog):
     # ---------- Commands ----------
 
     @commands.command(name="immune")
+    @requires_balance(5000, "immune_usage")
     async def immune(self, ctx, duration: str):
         time_map = {"s": 1, "m": 60, "h": 3600}
         match = re.match(r"^(\d+)([smh])$", duration)
@@ -188,6 +189,7 @@ class AutoDisconnect(commands.Cog):
 
     @commands.command(name="dc", aliases=["autodc","disconnect"])
     @check_master_channel()
+    @requires_balance(5000, "immune_usage")
     async def _auto_dc(self, ctx, *args):
 
         member, duration = await self._parse_autodc_args(ctx, args)
