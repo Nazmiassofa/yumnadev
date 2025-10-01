@@ -1,0 +1,149 @@
+# emojis.py
+from discord import PartialEmoji
+
+EMOJI_STR = {
+    "GOLDNITRO": "<:goldnitro:1372698004154224712>",
+    "GOLDENDIAMOND": "<a:goldendiamond:1372680879444594819>",
+    "THANKCUTE": "<:thankcute:1372680317126578338>",
+    "WHITECIRCLE": "<:whitecircle:1372704340783009792>",
+    "LONCENG": "<:lonceng:1373037888903581839>",
+    "ERROR": "<:error:1373049043537625148>",
+    "HORIZONTAL": "<:horizontal:1373146214651920445>",
+    "YELLOWCROWN": "<a:crownyellow:1384341563928481843>",
+    
+    #---------------------------------------------- TEMP VOICE
+    "PUBLIC": "<:public:1373064948145586256>",
+    "HIDE": "<:hide:1373065111564193833>",
+    "EDIT": "<:edit:1373064804385685636>",
+    "PRIVATE": "<:private:1373065006186233898>",
+    "RANDOM": "<:random:1373064912124907560>",
+    "LIMIT": "<:limit:1373064881221406720>",
+    "NEW": "<:new:1373145748664750140>",
+    "DELETE": "<:delete:1373145936657649724>",
+    "WHITELINE": "<:whiteline:1374034958167048242>",
+    "RIGHTSWIPE": "<:swipekanan:1374035755755634828>",
+    "LEFTSWIPE": "<:swipekiri:1374035649149272105>",
+    
+    #---------------------------------------------- AUTO THREAD
+    "ORANGEHEARTBIG": "<a:orangeheartbig:1375830636803129445>",
+    "PINKHEARTBIG": "<a:pinkheartbig:1375830584722456707>",
+    "ORANGEHEART": "<a:orangeheart:1375830500173676564>",
+    "BLUEHEART": "<a:blueheart:1375830429512368188>",
+    "BEARHEART": "<a:bearheart:1375830380485017782>",
+    
+    #---------------------------------------------- HANGMAN DEV
+    # "REDHEART": "<:redheart:1398275972033151037>",
+    # "SKULLHEART": "<:heartskull:1398275479840096367>",
+    # "PRIZE": "<:prize:1398275545569034260>",
+    # "WRONG": "<:wrong:1398275395475738685>",
+    # "CORRECT": "<:correct:1398275264517115974>",
+    # "SKULL": "<:skull:1398272799033790555>",
+    # "START": "<:startgame:1398280694127530077>",
+    # "WINNER": "<:armystart:1398281022269030560>",
+    # "PLANNER": "<:planner:1398281909095890994>",
+    # "TIMEOUT": "<:timeout:1398284261198532749>",
+    # "POINT": "<:point:1398294166341025905>",
+    # "CHAT": "<:chat:1398294133713408113>",
+    # "DICE": "<:dice:1398294831498793000>",
+    # "PROGRESS": "<:progress:1398294879393546371>",
+    
+    "POINT": "<:point:1398299095793139792>",
+    "CHAT": "<:chat:1398299305646882907>",
+    "PROGRESS": "<:progress:1398299387108524162>",
+    "TIMEOUT": "<:timeout:1398299476728479776>",
+    "PLANNER": "<:planner:1398299585583251616>",
+    "DICE": "<:dice:1398299842807201875>",
+    "START": "<:startgame:1398299950324125809>",
+    "CORRECT": "<:correct:1398300025926193263>",
+    "WRONG": "<:wrong:1398300081735864371>",
+    "SKULL": "<:skull:1398300207669837914>",
+    "PRIZE": "<:prize:1398300294936268820>",
+    "SKULLHEART": "<:skullheart:1398300420677439528>",
+    "REDHEART": "<:redheart:1398300555545411584>",
+    "JOIN": "<:join:1398300623841263696>",
+    "WINNER": "<:winner:1398301225002205184>",
+    "WARNING": "<:warning:1398299791787688138>"
+    
+}
+
+EMOJI_BTN = {
+    "GOLDNITRO": PartialEmoji(name="goldnitro", id=1372698004154224712),
+    "GOLDENDIAMOND": PartialEmoji(name="goldendiamond", id=1373048638837624854),
+    "THANKCUTE": PartialEmoji(name="thankcute", id=1372680317126578338),
+    "EXIT": PartialEmoji(name="exit", id=1373049230733869146),
+    "LOCK": PartialEmoji(name="lock", id=1373049305274912968),
+    "ADD": PartialEmoji(name="add", id=1373048397434454016),
+    "PLAY": PartialEmoji(name="play", id=1373049449009643530),
+    "PUBLIC": PartialEmoji(name="public", id=1373049535655575562),
+    "HIDE": PartialEmoji(name="hide", id=1373049620908998757),
+    "EDIT": PartialEmoji(name="edit", id=1373049721114853437),
+    "RANDOM": PartialEmoji(name="random", id=1373059742955606136),
+    "BLACKRIGHT": PartialEmoji(name="blackright", id=1373049864270778470),
+    "RETRY": PartialEmoji(name="retry", id=1373049923502870598),
+    
+    #---- testing
+    "JOIN": PartialEmoji(name="joinicon", id=1398276077528551515)
+    
+}
+
+# --------- Testing Hangman
+
+JOIN = EMOJI_STR['JOIN']
+SKULL = EMOJI_STR['SKULL']
+WRONG = EMOJI_STR['WRONG']
+CORRECT = EMOJI_STR['CORRECT']
+PRIZE = EMOJI_STR['PRIZE']
+REDHEART = EMOJI_STR['REDHEART']
+START = EMOJI_STR['START']
+WINNER = EMOJI_STR['WINNER']
+PLANNER = EMOJI_STR['PLANNER']
+SKULLHEART = EMOJI_STR['SKULLHEART']
+TIMEOUT = EMOJI_STR['TIMEOUT']
+POINT = EMOJI_STR['POINT']
+CHAT = EMOJI_STR['CHAT']
+DICE = EMOJI_STR['DICE']
+PROGRESS = EMOJI_STR['PROGRESS']
+WARNING = EMOJI_STR['WARNING']
+
+
+
+#--------------------------- Prod
+
+HORIZONTAL = EMOJI_STR['HORIZONTAL'] * 15
+WHITELINE = EMOJI_STR['WHITELINE'] * 7
+WHITELINE_PENDEK = EMOJI_STR['WHITELINE'] * 5
+
+LONCENG = EMOJI_STR['LONCENG']
+PUBLIC = EMOJI_STR['PUBLIC']
+PRIVATE = EMOJI_STR['PRIVATE']
+HIDE = EMOJI_STR['HIDE']
+LIMIT = EMOJI_STR['LIMIT']
+EDIT = EMOJI_STR['EDIT']
+RANDOM = EMOJI_STR['RANDOM']
+NEW = EMOJI_STR['NEW']
+DELETE = EMOJI_STR['DELETE']
+
+
+LEFTSWIPE = EMOJI_STR['LEFTSWIPE']
+RIGHTSWIPE = EMOJI_STR['RIGHTSWIPE']
+
+GOLDENDIAMOND = EMOJI_STR['GOLDENDIAMOND']
+YELLOWCROWN = EMOJI_STR['YELLOWCROWN']
+
+#--------------- Untuk AutoThread
+
+ORANGEHEART = EMOJI_STR['ORANGEHEART']
+BLUEHEART = EMOJI_STR['BLUEHEART']
+BEARHEART = EMOJI_STR['BEARHEART']
+PINKHEARTBIG = EMOJI_STR['PINKHEARTBIG']
+ORANGEHEARTBIG = EMOJI_STR['ORANGEHEARTBIG']
+THANKCUTE = EMOJI_STR['THANKCUTE']
+
+emoji_thread = [
+    PINKHEARTBIG,
+    THANKCUTE,
+    BLUEHEART,
+    ORANGEHEART,
+    ORANGEHEARTBIG,
+    BEARHEART
+]
