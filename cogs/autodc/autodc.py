@@ -6,7 +6,8 @@ import time
 import json
 
 from datetime import datetime, timezone, timedelta
-from utils.decorator import check_master_channel
+from utils.decorator.channel import check_master_channel
+from utils.decorator.spender import requires_balance
 
 from cogs.voice.voicecount import get_cache_count
 from .database.redis import MasterChannelRedis as redis
@@ -105,7 +106,7 @@ class AutoDisconnect(commands.Cog):
     async def _is_valid_master_channel(self, ctx) -> bool:
         master_channel_id = await redis.get_master_channel_cache(self, ctx.guild.id)
         if master_channel_id is None:
-            master_channel_id = await db.get_master_channel(self, ctx.guild.id)
+            master_channel_id = await db.get_master_channel(ctx.guild.id)
             if master_channel_id:
                 await redis.save_master_channel_cache(self, ctx.guild.id, master_channel_id)
 

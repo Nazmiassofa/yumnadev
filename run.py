@@ -175,40 +175,40 @@ class YumnaBot(commands.Bot):
         log.error(f"[ COMMAND ERROR ] --------- {type(error).__name__}: {error}")
         
     
-    ### RABBIT INIT    
-    async def init_rabbit_connection(self):
-        try:
-            self.rabbit_conn = await aio_pika.connect_robust(RabbitMQ().RABBIT_URL)
-            ch = await self.rabbit_conn.channel()
-            await ch.set_qos(prefetch_count=10)
+    # ### RABBIT INIT    
+    # async def init_rabbit_connection(self):
+    #     try:
+    #         self.rabbit_conn = await aio_pika.connect_robust(RabbitMQ().RABBIT_URL)
+    #         ch = await self.rabbit_conn.channel()
+    #         await ch.set_qos(prefetch_count=10)
 
-            # declare x-delayed-message exchange (plugin required)
-            await ch.declare_exchange(
-                RabbitMQ.AUTODC_EXCHANGE,
-                type="x-delayed-message",
-                durable=True,
-                arguments={"x-delayed-type": "direct"}
-            )
+    #         # declare x-delayed-message exchange (plugin required)
+    #         await ch.declare_exchange(
+    #             RabbitMQ.AUTODC_EXCHANGE,
+    #             type="x-delayed-message",
+    #             durable=True,
+    #             arguments={"x-delayed-type": "direct"}
+    #         )
 
-            # declare queues (idempotent)
-            q = await ch.declare_queue(RabbitMQ.AUTODC_QUEUE, durable=True)
-            await q.bind(RabbitMQ.AUTODC_EXCHANGE, routing_key=RabbitMQ.ROUTING_KEY)
-            await ch.declare_queue(RabbitMQ.AUTODC_CANCEL_QUEUE, durable=True)
+    #         # declare queues (idempotent)git
+    #         q = await ch.declare_queue(RabbitMQ.AUTODC_QUEUE, durable=True)
+    #         await q.bind(RabbitMQ.AUTODC_EXCHANGE, routing_key=RabbitMQ.ROUTING_KEY)
+    #         await ch.declare_queue(RabbitMQ.AUTODC_CANCEL_QUEUE, durable=True)
 
-            await ch.close()
-            return self.rabbit_conn
-        except Exception as e:
-            log.error(f"[ RABBIT MQ ] ---------- Failed to init connection: {e}")
-            # re-raise so setup_hook can handle/close bot
-            raise
+    #         await ch.close()
+    #         return self.rabbit_conn
+    #     except Exception as e:
+    #         log.error(f"[ RABBIT MQ ] ---------- Failed to init connection: {e}")
+    #         # re-raise so setup_hook can handle/close bot
+    #         raise
 
 
-    async def close_rabbit_connection(self):
-        if getattr(self, "rabbit_conn", None):
-            try:
-                await self.rabbit_conn.close()
-            except Exception as e:
-                log.error(f"[ RABBIT MQ ] ---------- Error closing connection: {e}")
+    # async def close_rabbit_connection(self):
+    #     if getattr(self, "rabbit_conn", None):
+    #         try:
+    #             await self.rabbit_conn.close()
+    #         except Exception as e:
+    #             log.error(f"[ RABBIT MQ ] ---------- Error closing connection: {e}")
 
     ### SETUP HOOK
     async def setup_hook(self):
@@ -224,8 +224,8 @@ class YumnaBot(commands.Bot):
             self.http_session = aiohttp.ClientSession()
             log.info("[ HTTP SESSION ] ---------- HTTP session created")
             
-            await self.init_rabbit_connection()
-            log.info("[ RABBIT MQ ] ------------- RabbitMQ connection established")
+            # await self.init_rabbit_connection()
+            # log.info("[ RABBIT MQ ] ------------- RabbitMQ connection established")
 
             # Load all cogs
             await self._load_cogs()
@@ -323,9 +323,9 @@ class YumnaBot(commands.Bot):
             await redis.close_redis()
             log.info("[ REDIS ] -------------------- Redis pool closed")
             
-            if getattr(self, "rabbit_conn", None):
-                await self.close_rabbit_connection()
-                log.info("[ SHUTDOWN ] ------------- RabbitMQ closed")
+            # if getattr(self, "rabbit_conn", None):
+            #     await self.close_rabbit_connection()
+            #     log.info("[ SHUTDOWN ] ------------- RabbitMQ closed")
                 
             # Close HTTP session
             if self.http_session and not self.http_session.closed:
