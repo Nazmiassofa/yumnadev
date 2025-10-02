@@ -62,11 +62,11 @@ class ChatbotCog(commands.Cog):
                         ctx = await self.bot.get_context(message)
                         question = message.content[len(prefix):].strip()
                         if question:
-                            await chatbot_cog.ask_command(ctx, question=question)
+                            await self.ask_command(ctx, question=question)
                         return
 
-                # Handle advanced processing
-                await self.advance_process(message, message.guild.id)
+                # # Handle advanced processing
+                # await self.advance_process(message, message.guild.id)
                 
         except Exception as e:
             logger.error(f"[ CHATBOT ] --------------- Error in chatbot handling: {e}")
@@ -325,68 +325,7 @@ class ChatbotCog(commands.Cog):
         except Exception as e:
             logger.error(f"Error in AI mode: {str(e)}", exc_info=True)
             await message.channel.send("⚠️ Terjadi kesalahan saat memproses pesan ini.")
-
-    @commands.command()
-    async def on_ai(self, ctx):
-        if ctx.guild.id != self.bot.main_guild_id:
-            return
         
-        master_channel_id = await redis.get_master_channel_cache(self.bot, ctx.guild.id)
-        
-        if master_channel_id is None:
-            master_channel_id = await db.get_master_channel(self, ctx.guild.id)
-            if master_channel_id:
-                await redis.save_master_channel_cache(self.bot, ctx.guild.id, master_channel_id)        
-        
-        if master_channel_id is None:
-            await ctx.reply(
-                "Hubungi admin untuk mengaktifkan mode AI.\n"
-                "-# Mode ini hanya bisa digunakan untuk channel utama Yumna\n"
-                "-# atau gunakan command `/set_yumna_channel` untuk mengatur channel utama"
-            )
-            return
-        
-        if ctx.channel.id != master_channel_id:
-            await ctx.reply(f"Hanya bisa digunakan di <#{master_channel_id}>")
-            return
-        
-        await redis.set_ai_mode(self.bot, ctx.channel.id, ctx.author.id, True)
-        
-        embed = discord.Embed(
-            title="Yumna Ai Bot Aktif",
-            description="Aku akan mendengarkan percakapanmu di channel ini.",
-            color=discord.Color.red()
-        )
-        
-        if self.bot.user.avatar:
-            embed.set_thumbnail(url=self.bot.user.avatar.url)
-
-        await ctx.send(embed=embed)
-        
-    @commands.command()
-    async def off_ai(self, ctx):
-        if ctx.guild.id != self.bot.main_guild_id:
-            return        
-
-        if  await redis.is_ai_mode_on(self.bot, ctx.channel.id, ctx.author.id):
-            await redis.set_ai_mode(self.bot, ctx.channel.id, status=False)
-            
-            embed = discord.Embed(
-                title="Yumna Bot Nonaktif",
-                description="Aku berhenti mendengarkan percakapanmu di channel ini.",
-                color=discord.Color.red()
-            )
-            if self.bot.user.avatar:
-                embed.set_thumbnail(url=self.bot.user.avatar.url)
-            await ctx.send(embed=embed)
-        else:
-            embed = discord.Embed(
-                title="❌ Akses Ditolak",
-                description="Yumna sedang tidak mendengarkanmu!",
-                color=discord.Color.orange()
-            )
-            embed.set_footer(text="Hanya user yang mengaktifkan bisa mematikan mode ini")
-            await ctx.send(embed=embed, delete_after=5)
 
     @commands.command(name="ask")
     @requires_balance(200, "askcommand_usage")
