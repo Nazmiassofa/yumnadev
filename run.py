@@ -4,7 +4,6 @@ import logging
 import random
 import aiohttp
 import sys
-import aio_pika
 
 import discord
 

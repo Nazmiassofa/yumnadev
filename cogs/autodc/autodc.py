@@ -249,12 +249,11 @@ class AutoDisconnect(commands.Cog):
             ctx,
             title="✅ Refresh AutoDisconnect!" if refreshed else "✅ Auto-Disconnect Dimulai!",
             desc=(
-                f"Timer AutoDisconnect {member.mention} diperbarui: **{duration}**."
+                f"Timer AutoDisconnect {member.mention} diperbarui: **{duration}**.\n\n-# request by - {user_name}"
                 if refreshed else
-                f"{member.mention} akan di-disconnect dalam **{duration}**."
+                f"{member.mention} akan di-disconnect dalam **{duration}**.\n\n-# request by - {user_name}"
             ),
-            color=discord.Color.green(),
-            footer="v!cancel untuk membatalkan."
+            color=discord.Color.green()
         )
         log.info(f"[ COMMAND CALL ] -- [ AutoDC ] ---- From {user_name} on guild [ {guild_name} ]")
 
@@ -264,19 +263,7 @@ class AutoDisconnect(commands.Cog):
     async def _disconnect_timer(self, ctx, target, delay):
         guild_id, user_id = ctx.guild.id, target.id
         try:
-            if delay > 120:
-                await asyncio.sleep(delay - 120)
-                if await self._is_user_immune(guild_id, user_id):
-                    await self._send_embed(ctx, "🛡️ User Sedang Immune!",
-                        f"{target.mention} sedang immune.", discord.Color.blue())
-                    return
-                await self._send_embed(ctx, "🔔 Auto-Disconnect",
-                    f"⏳ {target.mention}, kamu akan di-disconnect dalam **2 menit**!",
-                    discord.Color.orange(), footer="v!cancel untuk membatalkan.",
-                    thumbnail=target.avatar.url if target.avatar else "")
-                await asyncio.sleep(120)
-            else:
-                await asyncio.sleep(delay)
+            await asyncio.sleep(delay)
 
             if await self._is_user_immune(guild_id, user_id):
                 await self._send_embed(ctx, "🛡️ User Sedang Immune!",
@@ -324,7 +311,7 @@ class AutoDisconnect(commands.Cog):
         return value * time_map[unit]
 
     async def _send_embed(self, ctx, title, desc, color, footer=None, thumbnail=None):
-        embed = discord.Embed(title=title, description=desc, color=color, timestamp=discord.utils.utcnow())
+        embed = discord.Embed(title=title, description=desc, color=color)
         if footer:
             embed.set_footer(text=footer)
         if thumbnail:
