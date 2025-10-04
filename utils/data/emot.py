@@ -21,8 +21,8 @@ EMOJI_STR = {
     "NEW": "<:new:1373145748664750140>",
     "DELETE": "<:delete:1373145936657649724>",
     "WHITELINE": "<:whiteline:1374034958167048242>",
-    "RIGHTSWIPE": "<:swipekanan:1374035755755634828>",
-    "LEFTSWIPE": "<:swipekiri:1374035649149272105>",
+    "RIGHTSWIPE": "<a:rigtswipe:1424044637508866160>",
+    "LEFTSWIPE": "<a:leftswipe:1424044738218299473>",
     
     #---------------------------------------------- AUTO THREAD
     "ORANGEHEARTBIG": "<a:orangeheartbig:1375830636803129445>",
@@ -62,7 +62,12 @@ EMOJI_STR = {
     "REDHEART": "<:redheart:1398300555545411584>",
     "JOIN": "<:join:1398300623841263696>",
     "WINNER": "<:winner:1398301225002205184>",
-    "WARNING": "<:warning:1398299791787688138>"
+    "WARNING": "<:warning:1398299791787688138>",
+    
+    "GREEN_CHECKLIST": "<a:greencheck:1424044486794674256>",
+    "FIRE": "<a:burning:1424044374492319784>"
+    
+    
     
 }
 
@@ -147,3 +152,8 @@ emoji_thread = [
     ORANGEHEARTBIG,
     BEARHEART
 ]
+
+# ------------- untuk Absen
+
+GREENCHECKLIST = EMOJI_STR['GREEN_CHECKLIST']
+FIRE = EMOJI_STR['FIRE']
