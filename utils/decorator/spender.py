@@ -14,17 +14,13 @@ def requires_balance(price: int, reason: str = None):
 
             level = await economy.get_level(guild_id, user_id)
 
-            # Hitung diskon berdasarkan level (maks 10%)
             discount = min(level, 10) * 0.01  
             discounted_price = int(price * (1 - discount))
 
-            # cek apakah user ada di FREE_USERS
             effective_price = 0 if user_id in FREE_USERS else discounted_price
 
-            # Format price ke ribuan
             formatted_price = "{:,}".format(effective_price)
 
-            # kalau bukan free user, baru lakukan charge
             if effective_price > 0:
                 success = await economy.spend_balance(
                     ctx.guild.id, user_id, str(ctx.author),
@@ -41,7 +37,6 @@ def requires_balance(price: int, reason: str = None):
                     embed.set_footer(text="you can earn vcash from voice activity")
                     return await ctx.send(embed=embed)
 
-            # Execute original command
             return await func(self, ctx, *args, **kwargs)
 
         return wrapper

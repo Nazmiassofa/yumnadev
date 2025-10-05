@@ -7,9 +7,7 @@ class BotSetting:
     #------------- BOT SETTINGS
     #----------------------------------------------------------------------------------
     PREFIX = ["v!","V!","yum ","Yum "]  
-    # COGS_FOLDER = ['economy', 'channel', 'chatbot','autodc','fun','game']
-    # COGS_FOLDER = ['moderator','chatbot', 'autodc', 'economy', 'message']
-    COGS_FOLDER = ['voice', 'autodc', 'moderator', 'tempvoice', 'chatbot','fun','game','spygame','hangman','randomvoice','sambungkata','economy', 'channel']
+    COGS_FOLDER = ['economy', 'channel']
     
     # TOKEN
     TOKEN = os.getenv("TOKEN")

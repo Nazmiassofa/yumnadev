@@ -15,7 +15,7 @@ from utils.logger import setup_logging
 from config import BotSetting, RabbitMQ
 from utils.views.embed import EmbedBasicCommands as Embed
 
-from cogs.chatbot.helper.aiutils import groq_utils
+# from cogs.chatbot.helper.aiutils import groq_utils
 
 
 # Setup logging first
@@ -38,8 +38,8 @@ class YumnaBot(commands.Bot):
         self.db: Optional[Any] = None
         self.redis: Optional[Any] = None
         
-        self.ai = groq_utils
-        self.ai.set_bot(self)
+        # self.ai = groq_utils
+        # self.ai.set_bot(self)
         
         self.autodc_tasks = {}        # user_id -> task_id
         self.autodc_task_info = {}    # task_id -> {guild_id, user_id, scheduled_at, duration_str, initiator_id}

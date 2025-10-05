@@ -29,35 +29,28 @@ class Economy(commands.Cog):
         user_id = user.id
         username = str(user)
 
-        # ambil data user dari DB
         stats = await economy.get_user(guild_id, user_id, username)
 
-        # fallback avatar: pakai avatar user kalau ada, kalau nggak pakai icon server
         if user.avatar:
             avatar_url = user.avatar.url
         elif ctx.guild.icon:
             avatar_url = ctx.guild.icon.url
         else:
-            avatar_url = ctx.author.default_avatar.url  # fallback terakhir
+            avatar_url = ctx.author.default_avatar.url
 
         current_level = stats["level"]
         current_xp = stats["xp"]
 
-        # XP target untuk level berikutnya
         xp_next_level = xp_for_level(current_level + 1)
 
-        # progress langsung dari 0 sampai target
         progress = current_xp
         needed = xp_next_level
         percentage = progress / needed if needed > 0 else 1
 
-        # progress bar visual
         bar_length = 20
         filled = int(bar_length * percentage)
         bar = "█" * filled + "░" * (bar_length - filled)
 
-
-        # bikin embed
         embed = discord.Embed(
             title=f"{user.display_name}'s Info",
             color=discord.Color.blurple()
@@ -85,13 +78,10 @@ class Economy(commands.Cog):
         user_id = ctx.author.id
         username = str(ctx.author)
 
-        # Ambil data member dari service
         balance = await economy.get_balance(guild_id, user_id)
         
-        # Format balance dengan pemisah ribuan
         formatted_balance = "{:,}".format(balance)
 
-        # Buat embed
         embed = discord.Embed(
             description=(
                 f"### **Cash Info**\n"
@@ -130,7 +120,6 @@ class Economy(commands.Cog):
         if amount < 1000:
             return await ctx.send(embed=discord.Embed(description=f"Minimal transfer 1000!", color=discord.Color.red()))
 
-        # Panggil service dengan fee
         result = await economy.transfer_balance(
             guild_id, sender_id, sender_username, target.id, str(target), amount
         )
@@ -138,7 +127,6 @@ class Economy(commands.Cog):
         if result is None:
             return await ctx.reply(embed=discord.Embed(description="Saldo tidak cukup!\n-# biaya admin 50%", color=discord.Color.red()))
 
-        # Format angka
         amount_formatted = f"{result['amount']:,}"
         fee_formatted = f"{result['fee']:,}"
 
@@ -156,7 +144,6 @@ class Economy(commands.Cog):
         
     @commands.hybrid_command(name="transactions", aliases=["tx", "history"])
     async def transactions(self, ctx: commands.Context):
-        """Command untuk menampilkan transaction history user"""
         guild_id = ctx.guild.id
         user_id = ctx.author.id
         guild_name = ctx.guild.name
@@ -165,7 +152,6 @@ class Economy(commands.Cog):
         log.info(f"[ COMMAND CALL ] ---- Command [ transactions ] dipanggil : {guild_name} | {user_name}")
         
         def formatter(embed, idx, row):
-            # Menggunakan dictionary access untuk menghindari unpacking error
             try:
                 username = row['username']
                 amount = row['amount']
@@ -195,7 +181,6 @@ class Economy(commands.Cog):
                     inline=False
                 )
         
-        # Pagination untuk user transactions menggunakan service layer
         await self.paginate_user_transactions(ctx, guild_id, user_id, formatter, user_name)
 
     async def paginate_user_transactions(self, ctx, guild_id, user_id, formatter, user_name=None):
@@ -210,7 +195,6 @@ class Economy(commands.Cog):
         message = None
 
         while True:
-            # Gunakan service layer untuk mengambil data
             results = await economy.get_user_transaction_history(guild_id, user_id, DATA_PER_PAGE, start)
 
             if not results:
@@ -258,7 +242,6 @@ class Economy(commands.Cog):
                     pass
                 break
 
-            # Hapus reaction user supaya UI bersih
             try:
                 try:
                     await reaction.remove(user)
