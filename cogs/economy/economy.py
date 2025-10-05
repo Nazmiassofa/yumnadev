@@ -30,6 +30,7 @@ class Economy(commands.Cog):
         username = str(user)
 
         stats = await economy.get_user(guild_id, user_id, username)
+        streak = await economy.get_streaks(guild_id, user_id)
 
         if user.avatar:
             avatar_url = user.avatar.url
@@ -65,8 +66,9 @@ class Economy(commands.Cog):
             f"> - vcash boost +{stats['level']}%\n"
             f"> - reduce usage +{stats['level']}%\n\n"
 
-
-
+            f"> Streaks :\n"
+            f"> - Current Streak: {streak['current_streak'], 0} \n"
+            f"> - Longest Streak: {streak['longest_streak'], 0} \n"
         )
 
         await ctx.send(embed=embed)

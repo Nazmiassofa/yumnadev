@@ -25,6 +25,14 @@ async def get_level(guild_id: int, user_id: int):
     return await db.fetchrow("SELECT level FROM voisa.members WHERE guild_id = $1 AND user_id = $2", guild_id, user_id)
 
 @staticmethod
+async def get_streaks(guild_id: int, user_id: int):
+    return await db.fetchrow(
+        "SELECT current_streak, longest_streak FROM voisa.members WHERE guild_id = $1 AND user_id = $2",
+        guild_id,
+        user_id
+    )
+
+@staticmethod
 async def get_user_transactions(guild_id: int, user_id: int, limit: int = 5, offset: int = 0):
     """Ambil transaction history untuk user tertentu"""
     query = (
