@@ -16,6 +16,13 @@ async def get_level(guild_id: int, user_id: int):
     row = await repo.get_level(guild_id, user_id)
     return row["level"] if row and "level" in row else 0
 
+@staticmethod
+async def get_streaks(guild_id: int, user_id: int):
+    row = await repo.get_streaks(guild_id, user_id)
+    return {
+        "current_streak": row["current_streak"] if row and "current_streak" in row else 0,
+        "longest_streak": row["longest_streak"] if row and "longest_streak" in row else 0
+    }
 
 @staticmethod
 async def get_user_transaction_history(guild_id: int, user_id: int, limit: int = 5, offset: int = 0):
